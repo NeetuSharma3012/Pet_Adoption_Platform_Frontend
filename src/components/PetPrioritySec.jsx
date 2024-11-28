@@ -3,39 +3,38 @@ import React from 'react'
 
 const PetPrioritySec = () => {
   return (
-    <div className='bg-white py-12 px-6 flex flex-col md:flex-row items-center justify-between'>
-      {/*left text section*/}
+    <div className='py-16 bg-white'>
+      <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center'>
 
-      <div className='max-w-lg'>
-      <h2 className='text-4xl font-serif font-bold text-black mb-4'>
-        Your Pets <br /> Are our  <br />Priority
-      </h2>
+        {/* left ares */}
+        <div className=''>
+          <h2 className='text-4xl font-bold text-black mb-4 font-serif'>
+            Your Pets<br/> Are  Our Priority
+          </h2>
 
-      <p className='text-small text-gray-600 mb-6'>
-        Ensure you are fully prepared to provide proper care and attention 
-        to your pet before welcoming them into your home
-      </p>
-      <a 
-      href="/pets"
-      className='bg-lime-400 w-fit text-black py-2 px-6 rounded-lg font-small hover:lime-600 transition'
-      >
-        Adopt<IconPawFilled className='text-center'/>
-      </a>
+          <p className='text-gray-600 mb-6'>
+            Ensure you are fully prepared to provide proper
+              care and attention to your pet before welcoming them into your home.
+          </p>
+
+          <a 
+          href="/pets"
+          className='flex items-center justify-center gap-2 px-6 py-3 bg-lime-400 text-black hover:bg-lime-500 text-black font-semibold rounded-lg'
+          >
+          Adopt a pet <IconPawFilled className='position-center'/>
+          </a>
+        </div>
+
+        {/* right image */}
+        <div>
+          <img src="/puppyImg.png" 
+          alt="puppy"
+          className='bg-slate-100 rounded-full border-2 border-lime-200 shadow-md '
+          />
+        </div>
       </div>
 
-      {/*right image section */}
-
-      <div className='relative mt-8 md:mt-0'>
-        {/*main image */}
-        <img src="/puppyImg.png" 
-        alt="small puppy" 
-        className='w-80 h-80 object-cover rounded-full border-4 border-lime-500'
-        />
-      </div>
-      
     </div>
-
-    
     
   )
 }

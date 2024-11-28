@@ -1,7 +1,10 @@
 'use client';
 import { IconCheck, IconLoader3 } from '@tabler/icons-react';
+import axios from 'axios';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
 import React from 'react'
+import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
@@ -23,6 +26,8 @@ const SignupSchema = Yup.object().shape({
 
 const signup = () => {
 
+  const router =useRouter();
+
 
     //initialising formik
     const form = useFormik({
@@ -32,11 +37,23 @@ const signup = () => {
             password: '',
             confirmPassword: ''
         },
-        onSubmit: (values, { resetForm}) => {
-            setTimeout(() => {
-          console.log(values);
+        onSubmit: (values, { resetForm, setSubmitting }) => {
+      //       setTimeout(() => {
+      //     console.log(values);
+      //     resetForm();
+      // }, 2000);
+
+      //fetch
+      axios.post('http://localhost:5001/user/add', values)
+        .then((result) => {
+          toast.success('User Registered successfully');
           resetForm();
-      }, 2000);
+          router.push('/login');
+        }).catch((err) => {
+          console.log(err);
+          toast.error(err?.response?.data?.message || 'something went wrong');
+          setSubmitting(false);
+        });
 
         },
         validationSchema: SignupSchema
@@ -228,7 +245,7 @@ const signup = () => {
             <div className="relative">
               <input
                 type="password"
-                id="confirm-password"
+                id="confirmPassword"
                 onChange={form.handleChange}
                 value={form.values.confirmPassword}
                 //name="confirm-password"
