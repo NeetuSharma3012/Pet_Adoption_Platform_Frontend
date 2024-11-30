@@ -1,9 +1,64 @@
-import React from 'react'
+'use client';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import toast from 'react-hot-toast';
+import * as Yup from 'yup';
 
-const login = () => {
+const LoginSchema = Yup.object().shape({
+    
+    email: Yup.string().email('Invalid email').required('Required'),
+    password:Yup.string().required('passward is required')
+    .matches(/[a-z]/,'lowercase lettter is required')
+    .matches(/[A-Z]/,'uppercase lettter is required')
+    .matches(/[0-9]/,'number is required')
+    .matches(/[\W]/,'symbol required')
+    .min(8,'minimum 8 characters are required '),
+    
+  });
+
+
+const Login = () => {
+
+  const router = useRouter();
+
+//initialising formik
+const form = useFormik({
+  initialValues : {
+      
+      email : '',
+      password : '',
+      
+  },
+  onSubmit : (values, { resetForm, setSubmitting }) => {
+      setSubmitting(true);//form is submitting
+      // setTimeout(() => {
+      //     console.log(values);
+      //     resetForm();
+      // }, 2000);
+
+      axios.post('http://localhost:5001/user/authenticate', values)
+      .then((result) => {
+        toast.success('User login successfully');
+        resetForm();
+        router.push('/');
+      }).catch((err) => {
+        console.log(err);
+        
+        toast.error(err?.response?.data?.message || 'something went wrong');
+        setSubmitting(false);
+      });
+
+      //send values to backend
+      
+  },
+  validationSchema: LoginSchema
+})
+
   return (
     <div className='min-h-screen'>
-      <div className=" max-w-lg mx-auto mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700">
+      <div className=" max-w-lg mx-auto mt-7 bg-slate-100  rounded-lg border-2 border-lime-200 shadow-md dark:bg-neutral-900 dark:border-neutral-700">
   <div className="p-4 sm:p-7">
     <div className="text-center">
       <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
@@ -54,7 +109,7 @@ const login = () => {
         Or
       </div>
       {/* Form */}
-      <form>
+      <form onSubmit={form.handleSubmit}>
         <div className="grid gap-y-4">
           {/* Form Group */}
           <div>
@@ -69,11 +124,17 @@ const login = () => {
                 type="email"
                 id="email"
                 name="email"
+                value={ form.values.email}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
                 className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                required=""
-                aria-describedby="email-error"
+                
               />
-              <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+              {form.touched.email && form.errors.email && (
+                <p className='text-xs text-red-600 mt-2'>
+                  {form.errors.email}</p>
+              )}
+              {/* <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                 <svg
                   className="size-5 text-red-500"
                   width={16}
@@ -84,11 +145,11 @@ const login = () => {
                 >
                   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                 </svg>
-              </div>
+              </div> */}
             </div>
-            <p className="hidden text-xs text-red-600 mt-2" id="email-error">
+            {/* <p className="hidden text-xs text-red-600 mt-2" id="email-error">
               Please include a valid email address so we can get back to you
-            </p>
+            </p> */}
           </div>
           {/* End Form Group */}
           {/* Form Group */}
@@ -112,11 +173,21 @@ const login = () => {
                 type="password"
                 id="password"
                 name="password"
+                value = {form.values.password}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
                 className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 required=""
                 aria-describedby="password-error"
               />
-              <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+              {form.touched.password && form.errors.password && (
+                <p className='text-xs text-red-600 mt-2'>
+                  {form.errors.password}
+                </p>
+              )
+              
+              }
+              {/* <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                 <svg
                   className="size-5 text-red-500"
                   width={16}
@@ -127,11 +198,11 @@ const login = () => {
                 >
                   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                 </svg>
-              </div>
+              </div> */}
             </div>
-            <p className="hidden text-xs text-red-600 mt-2" id="password-error">
+            {/* <p className="hidden text-xs text-red-600 mt-2" id="password-error">
               8+ characters required
-            </p>
+            </p> */}
           </div>
           {/* End Form Group */}
           {/* Checkbox */}
@@ -153,9 +224,14 @@ const login = () => {
           {/* End Checkbox */}
           <button
             type="submit"
-            className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-400 text-black hover:bg-lime-500 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+            disabled= {form.isSubmitting}
+            className="w-full py-3 px-4 inline-flex justify-center
+             items-center gap-x-2 text-sm font-medium rounded-lg border 
+             border-transparent bg-lime-400 text-black hover:bg-lime-500 
+             focus:outline-none focus:bg-blue-700 disabled:opacity-50 
+             "
           >
-            Sign in
+            {form.isSubmitting ? 'Singning in...' : 'Sign in'}
           </button>
         </div>
       </form>
@@ -168,4 +244,4 @@ const login = () => {
   )
 }
 
-export default login
+export default Login

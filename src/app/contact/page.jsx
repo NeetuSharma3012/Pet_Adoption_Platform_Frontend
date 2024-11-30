@@ -16,7 +16,7 @@ const ContactPage = () => {
         </p>
       </div>
     </div>
-    <div className="mt-12 max-w-lg mx-auto">
+    <div className="bg-slate-100 rounded-lg border-2 border-lime-200 shadow-md mt-12 max-w-lg mx-auto">
       {/* Card */}
       <div className="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-8 dark:border-neutral-700">
         <h2 className="mb-8 text-xl font-semibold text-gray-800 dark:text-neutral-200">
@@ -150,7 +150,7 @@ const ContactPage = () => {
             Knowledgebase
           </h3>
           <p className="mt-1 text-gray-500 dark:text-neutral-500">
-            We're here to help with any questions or code.
+            We're here to help with any questions.
           </p>
           <p className="mt-5 inline-flex items-center gap-x-1 font-medium text-lime-600 dark:text-blue-500">
             Contact support

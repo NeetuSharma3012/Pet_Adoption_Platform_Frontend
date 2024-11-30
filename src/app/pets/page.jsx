@@ -1,5 +1,7 @@
+'use client';
 import Card from '@/components/Card'
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
 
 const pets =[
     {
@@ -65,6 +67,22 @@ const pets =[
 ]
 
 const petsPage = () => {
+
+    const sendToDatabase = async(pet) => {
+      try{
+        const response = await axios.post('http://localhost5001/api/pets/add', pet);
+        console.log(`Pet "${pet.title}" added to database successfully:`, response.data);
+        
+      }catch(error) {
+        console.log(`failed to add "${pet.title}" to the database:`, error.message);
+        
+      }
+    };
+
+    useEffect(() => {
+      pets.forEach((pet) => sendToDatabase(pet));
+    }, []);
+
   return (
     <div className='p-6'>
         <h1 className='text-2xl text-center font-bold mb-6 '> Our Lovely Pets</h1>
