@@ -1,7 +1,27 @@
-import React from 'react'
+'use client';
+import React, { useEffect, useState } from 'react'
 
 
 const Navbar = () => {
+
+  const [isLoggedin, setIsLoggedin] = useState(false);
+
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  if(token) {
+    setIsLoggedin(true);
+  }
+},[]);
+
+const handleLogout =() => {
+  localStorage.removeItem('token');
+  setIsLoggedin(false);
+};
+
+  const handleLoginLogout =( ) => {
+    setIsLoggedin(!isLoggedin);
+  };
+
 
   
   return (
@@ -170,10 +190,12 @@ const Navbar = () => {
           <div>
             <a
             
-              className="inline-block text-black font-bold underline hover:text-gray-600 focus:outline-none focus:text-gray-600 dark:text-white dark:hover:text-neutral-300 dark:focus:text-neutral-300"
-              href="/login"
+              className="inline-block text-black font-bold underline hover:text-gray-600 focus:outline-none
+              focus:text-gray-600 dark:text-white dark:hover:text-neutral-300 dark:focus:text-neutral-300"
+              href={isLoggedin ? "#" : "/login"}
+              onClick={isLoggedin ? handleLogout : null} 
             >
-              Login
+              {isLoggedin ? "Logout" : "Login"}
             </a>
           </div>
         </div>

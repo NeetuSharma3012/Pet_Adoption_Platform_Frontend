@@ -1,6 +1,38 @@
-import React from 'react'
+'use client';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 
-const page = () => {
+const Adoptionpage = () => {
+
+  const router = useRouter();
+
+  const form =useFormik({
+    initialValues:{
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      details: ''
+    },
+    onSubmit: (values, { resetForm, setSubmitting}) =>{
+      axios.post('http://localhost:5001/adoption/submit', values)
+      .then((result) => {
+        toast.success('Form Successfully Submitted.');
+        resetForm();
+        router.push('/pets');
+      }).catch((err) => {
+        console.log(err);
+        toast.error(err?.response?.data?.message || 'Something went wrong!');
+        setSubmitting(false);
+        
+      });
+    }
+  });
+  
+
+
   return (
     <div>
       
@@ -19,11 +51,11 @@ const page = () => {
     </div>
     <div className="mt-12 max-w-lg mx-auto">
       {/* Card */}
-      <div className="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-8 dark:border-neutral-700">
+      <div className="flex flex-col bg-slate-100 rounded-lg border-2 border-lime-200 shadow-md p-4 sm:p-6 lg:p-8 dark:border-neutral-700">
         <h2 className="mb-8 text-xl font-semibold text-gray-800 dark:text-neutral-200">
           Fill in the form
         </h2>
-        <form>
+        <form onSubmit={form.handleSubmit}>
           <div className="grid gap-4 lg:gap-6">
             {/* Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
@@ -36,8 +68,10 @@ const page = () => {
                 </label>
                 <input
                   type="text"
-                  name="hs-firstname-contacts-1"
+                  name="fullName"
                   id="hs-firstname-contacts-1"
+                  value={form.values.fullName}
+                  onChange={form.handleChange}
                   className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 />
               </div>
@@ -55,9 +89,11 @@ const page = () => {
                 </label>
                 <input
                   type="email"
-                  name="hs-email-contacts-1"
+                  name="email"
                   id="hs-email-contacts-1"
                   autoComplete="email"
+                  value={form.values.email}
+                  onChange={form.handleChange}
                   className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 />
               </div>
@@ -70,8 +106,10 @@ const page = () => {
                 </label>
                 <input
                   type="text"
-                  name="hs-phone-number-1"
+                  name="phoneNumber"
                   id="hs-phone-number-1"
+                  value={form.values.phoneNumber}
+                  onChange={form.handleChange}
                   className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 />
               </div>
@@ -86,10 +124,12 @@ const page = () => {
               </label>
               <textarea
                 id="hs-about-contacts-1"
-                name="hs-about-contacts-1"
+                name="details"
                 rows={4}
+                value={form.values.details}
+                onChange={form.handleChange}
                 className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                defaultValue={""}
+                
               />
             </div>
           </div>
@@ -97,9 +137,11 @@ const page = () => {
           <div className="mt-6 grid">
             <button
               type="submit"
+              disabled={form.isSubmitting}
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-400 text-black hover:bg-lime-500 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
             >
-              Start the Adoption journey
+              {/* {isSubmitting ? 'Submitting...' : 'Start the Adoption journey'} */}
+              {form.isSubmitting ? 'Submitting...' : 'Start the Adoption journey'}
             </button>
           </div>
           <div className="mt-3 text-center">
@@ -108,6 +150,7 @@ const page = () => {
             </p>
           </div>
         </form>
+        
       </div>
       {/* End Card */}
     </div>
@@ -122,4 +165,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Adoptionpage;

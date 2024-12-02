@@ -1,6 +1,37 @@
-import React from 'react'
+'use client';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 
 const ContactPage = () => {
+
+  const router = useRouter();
+
+  const form =useFormik({
+    initialValues:{
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      details: ''
+    },
+    onSubmit: (values, { resetForm, setSubmitting}) =>{
+      axios.post('http://localhost:5001/contact/submit', values)
+      .then((result) => {
+        toast.success('Form Successfully Submitted.');
+        resetForm();
+        router.push('/');
+      }).catch((err) => {
+        console.log(err);
+        toast.error(err?.response?.data?.message || 'Something went wrong!');
+        setSubmitting(false);
+        
+      });
+    }
+  });
+
   return (
     <div>
       <>
@@ -22,7 +53,7 @@ const ContactPage = () => {
         <h2 className="mb-8 text-xl font-semibold text-gray-800 dark:text-neutral-200">
           Fill in the form
         </h2>
-        <form>
+        <form onSubmit={form.handleSubmit}>
           <div className="grid gap-4 lg:gap-6">
             {/* Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
@@ -35,8 +66,10 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="text"
-                  name="hs-firstname-contacts-1"
+                  name="firstName"
                   id="hs-firstname-contacts-1"
+                  value={form.values.firstName}
+                  onChange={form.handleChange}
                   className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 />
               </div>
@@ -49,8 +82,10 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="text"
-                  name="hs-lastname-contacts-1"
+                  name="lastName"
                   id="hs-lastname-contacts-1"
+                  value={form.values.lastName}
+                  onChange={form.handleChange}
                   className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 />
               </div>
@@ -67,9 +102,11 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="email"
-                  name="hs-email-contacts-1"
+                  name="email"
                   id="hs-email-contacts-1"
                   autoComplete="email"
+                  value={form.values.email}
+                  onChange={form.handleChange}
                   className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 />
               </div>
@@ -82,8 +119,10 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="text"
-                  name="hs-phone-number-1"
+                  name="phoneNumber"
                   id="hs-phone-number-1"
+                  value={form.values.phoneNumber}
+                  onChange={form.handleChange}
                   className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 />
               </div>
@@ -98,10 +137,12 @@ const ContactPage = () => {
               </label>
               <textarea
                 id="hs-about-contacts-1"
-                name="hs-about-contacts-1"
+                name="details"
                 rows={4}
+                value={form.values.details}
+                onChange={form.handleChange}
                 className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                defaultValue={""}
+                
               />
             </div>
           </div>
@@ -109,9 +150,10 @@ const ContactPage = () => {
           <div className="mt-6 grid">
             <button
               type="submit"
+              disabled={form.isSubmitting}
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-400 text-black hover:bg-lime-500 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
             >
-              Send inquiry
+              {form.isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
           </div>
           <div className="mt-3 text-center">
@@ -120,6 +162,7 @@ const ContactPage = () => {
             </p>
           </div>
         </form>
+        
       </div>
       {/* End Card */}
     </div>

@@ -39,10 +39,17 @@ const form = useFormik({
       // }, 2000);
 
       axios.post('http://localhost:5001/user/authenticate', values)
-      .then((result) => {
-        toast.success('User login successfully');
+      .then((result) => {// Assuming the token is in "data.token"
+        const token = result.data.token; 
+        if (token) {
+          localStorage.setItem('token', token); //save the token in localStorage
+          toast.success('User login successfully');
         resetForm();
         router.push('/');
+        } else{
+          toast.error('Login failed, token not received.');
+        }
+
       }).catch((err) => {
         console.log(err);
         
