@@ -1,7 +1,7 @@
 'use client';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
@@ -9,15 +9,36 @@ const Adoptionpage = () => {
 
   const router = useRouter();
 
+  const searchParams = useSearchParams();
+  const { id } = useParams(); // Get petId from query parameters
+
+  //capture pet info
+  const petId = searchParams.get('petId');
+  const petTitle = searchParams.get('petTitle');
+  const petImage = searchParams.get('petImage');
+  
+
+  // Ensure the form won't submit if petId is missing
+  if (!petId || !petTitle || !petImage) {
+    return (
+      <div className="text-center mt-10">
+        <p className="text-red-600">Pet not specified. Please go back and try again.</p>
+      </div>
+    );
+  }
+
   const form =useFormik({
     initialValues:{
       fullName: '',
       email: '',
       phoneNumber: '',
-      details: ''
+      details: '',
+      petId: petId,
+      petTitle: petTitle,
+      petImage: petImage
     },
     onSubmit: (values, { resetForm, setSubmitting}) =>{
-      axios.post('http://localhost:5001/adoption/submit', values)
+      axios.post('http://localhost:5001/adoption/submit', values )
       .then((result) => {
         toast.success('Form Successfully Submitted.');
         resetForm();

@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 
 const Navbar = () => {
@@ -20,6 +21,15 @@ const handleLogout =() => {
 
   const handleLoginLogout =( ) => {
     setIsLoggedin(!isLoggedin);
+  };
+
+  const handleContact = (event) => {
+    if(!isLoggedin) {
+      //Show toast if not logged in
+      toast.error('You need to log in first!');
+      event.preventDefault();
+    }
+    
   };
 
 
@@ -82,15 +92,23 @@ const handleLogout =() => {
         <a
           
           href = '/signup'
-          className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white dark:focus:text-white"
+          className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border
+           border-gray-200 text-black hover:bg-gray-100 focus:outline-none
+            focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none 
+            dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-white/10 
+            dark:text-white dark:hover:text-white dark:focus:text-white"
         >
           Sign Up
         </a>
 
         <a
           
-          href = '/contact'
-          className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-lime-400 text-black hover:bg-lime-500 focus:outline-none focus:bg-lime-500 transition disabled:opacity-50 disabled:pointer-events-none"
+          href = {isLoggedin ? '/contact' : '/login'}
+          className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium 
+          rounded-xl border border-transparent bg-lime-400 text-black hover:bg-lime-500
+           focus:outline-none focus:bg-lime-500 transition disabled:opacity-50 
+           disabled:pointer-events-none"
+          onClick={handleContact}
         >
           Contact
         </a>
