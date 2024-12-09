@@ -44,15 +44,22 @@ const Card = ({ title,description, imageUrl, id }) => {
     <div className="flex gap-5">
       <a
       href={isLogging ? `/adoptionForm?petId=${id}&petTitle=${title}&petImage=${imageUrl}` : '/login'}
-        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 
-        focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white dark:focus:text-white"
+        className="py-2 px-3 inline-flex items-center gap-x-2 
+        text-sm font-medium rounded-xl bg-white border
+         border-gray-200 text-black hover:bg-gray-100 
+        focus:outline-none focus:bg-gray-100 disabled:opacity-50 
+        disabled:pointer-events-none dark:bg-neutral-900 
+        dark:border-neutral-700 dark:hover:bg-white/10 
+        dark:text-white dark:hover:text-white dark:focus:text-white"
         onClick={handleAdoptNow}
       >
         Adopt Now
       </a>
 
-      <a 
-      href={`/pet/${id}`}
+      
+      <a
+      href={`/pets/pets/$id}`}
+      
       className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-lime-400 text-black hover:bg-lime-500 
       focus:outline-none focus:bg-lime-500 transition
        disabled:opacity-50 disabled:pointer-events-none"
