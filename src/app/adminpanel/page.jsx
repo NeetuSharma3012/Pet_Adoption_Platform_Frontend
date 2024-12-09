@@ -1,11 +1,17 @@
 'use client';
 import React from 'react'
 import { Outlet } from 'react-router-dom';
+import Navbar from '@/components/Navbar_admin';
+import Footer from '@/components/Footer_admin';
 
 
 const Adminpage = () => {
   return (
+    
+  <div>
+    <Navbar/>
     <div className="flex h-screen">
+      
       {/* Sidebar */}
       <aside className="w-1/4 bg-slate-200 p-6">
         <h2 className="text-2xl font-bold text-center mb-6">Admin Panel</h2>
@@ -35,15 +41,15 @@ const Adminpage = () => {
 
         {/* Quick Stats Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-lime-100 p-4 rounded-lg shadow-md">
+          <div className="bg-slate-200 p-4 rounded-lg shadow-md">
             <h2 className="text-lg font-bold">Total Users</h2>
             <p className="text-2xl font-bold text-lime-600">150</p>
           </div>
-          <div className="bg-lime-100 p-4 rounded-lg shadow-md">
+          <div className="bg-slate-200 p-4 rounded-lg shadow-md">
             <h2 className="text-lg font-bold">Pending Requests</h2>
             <p className="text-2xl font-bold text-lime-600">24</p>
           </div>
-          <div className="bg-lime-100 p-4 rounded-lg shadow-md">
+          <div className="bg-slate-200 p-4 rounded-lg shadow-md">
             <h2 className="text-lg font-bold">New Messages</h2>
             <p className="text-2xl font-bold text-lime-600">12</p>
           </div>
@@ -76,6 +82,8 @@ const Adminpage = () => {
           </div>
         </div>
       </main>
+    </div>
+    <Footer/>
     </div>
   );
 };

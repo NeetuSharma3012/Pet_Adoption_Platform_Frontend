@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import ConditionalLayout from "@/components/conditionalLayout";
 
 
 
@@ -33,10 +34,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        { <Navbar/>}
+        {/* { <Navbar/>}
         <Toaster position="top-center"/>
         {children}
-        { <Footer/>}
+        { <Footer/>} */}
+
+<ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   );

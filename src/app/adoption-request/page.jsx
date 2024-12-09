@@ -1,4 +1,6 @@
 'use client';
+import Footer from '@/components/Footer_admin';
+import Navbar from '@/components/Navbar_admin';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
@@ -53,6 +55,8 @@ const AdoptionRequestpage = () => {
         return <div className='text-center text-xl p-4'>Loading...</div>;
     }
   return (
+    <div>
+      <Navbar/>
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Adoption Requests</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -96,6 +100,8 @@ const AdoptionRequestpage = () => {
           </div>
         ))}
       </div>
+    </div>
+    <Footer/>
     </div>
   )
 }
