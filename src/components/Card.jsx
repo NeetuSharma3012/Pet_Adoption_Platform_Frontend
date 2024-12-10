@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const Card = ({ title, description, imageUrl, id }) => {
+const Card = ({ title, description, imageUrl, id, breed, detailedDescription }) => {
 
   const [isLogging, setIsLogging] = useState(false);
 
@@ -38,12 +38,14 @@ const Card = ({ title, description, imageUrl, id }) => {
       <div>
         <h1 className="text-3xl font-bold">{title}</h1>
         <p className="text-gray-700">{description}</p>
+        <p className="text-gray-500"><strong>Breed:</strong> {breed}</p>
+        
       </div>
 
       {/* Button Section */}
       <div className="flex gap-5">
         <a
-          href={isLogging ? `/adoptionForm?petId=${id}&petTitle=${title}&petImage=${imageUrl}` : '/login'}
+          href={isLogging ? `/adoptionForm?petId=${id}&petTitle=${title}&petImage=${imageUrl}&petBreed=${breed}` : '/login'}
           className="py-2 px-3 inline-flex items-center gap-x-2 
         text-sm font-medium rounded-xl bg-white border
          border-gray-200 text-black hover:bg-gray-100 

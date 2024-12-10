@@ -1,6 +1,6 @@
 'use client';
 import React from 'react'
-import { Outlet } from 'react-router-dom';
+
 import Navbar from '@/components/Navbar_admin';
 import Footer from '@/components/Footer_admin';
 
@@ -29,6 +29,11 @@ const Adminpage = () => {
           <li>
           <a href="/contact-request" className='hover:text-lime-600'>
             Contact Request
+            </a>
+          </li>
+          <li>
+            <a href="/pets-data" className='hover:text-lime-600'>
+            pets Data
             </a>
           </li>
         </ul>
