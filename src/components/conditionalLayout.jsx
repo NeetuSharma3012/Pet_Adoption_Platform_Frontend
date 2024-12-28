@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import BackButton from "./BackButton";
 
 export default function ConditionalLayout({ children }) {
   const pathname = usePathname();
@@ -26,6 +27,7 @@ export default function ConditionalLayout({ children }) {
       {!excludeNavbarAndFooter && <Navbar />}
       <Toaster position="top-center" />
       {children}
+      <BackButton/>
       {!excludeNavbarAndFooter && <Footer />}
     </>
   );

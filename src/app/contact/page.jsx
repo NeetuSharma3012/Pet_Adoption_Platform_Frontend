@@ -47,6 +47,10 @@ const ContactPage = () => {
         </p>
       </div>
     </div>
+
+    
+
+    {/* main card */}
     <div className="bg-slate-100 rounded-lg border-2 border-lime-200 shadow-md mt-12 max-w-lg mx-auto">
       {/* Card */}
       <div className="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-8 dark:border-neutral-700">
@@ -166,6 +170,14 @@ const ContactPage = () => {
       </div>
       {/* End Card */}
     </div>
+
+
+
+
+
+
+
+
     <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-4 lg:gap-8">
       {/* Icon Block */}
       <a
