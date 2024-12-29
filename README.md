@@ -18,8 +18,11 @@ The platform allows users to:
 ### Homepage
 ![Homepage](https://github.com/NeetuSharma3012/Pet_Adoption_Platform_Frontend/blob/main/WhatsApp%20Image%202024-12-16%20at%2019.00.50_2c467c96.jpg?raw=true)
 
-### Pet Details Page
+### Pet Page
 ![Pet Page Screenshot](https://github.com/NeetuSharma3012/Pet_Adoption_Platform_Frontend/blob/main/Screenshot%20(107).png?raw=true)
+
+### Pet Detail Page
+![Pet Detail Page](https://github.com/NeetuSharma3012/Pet_Adoption_Platform_Frontend/blob/main/Screenshot%20(128).png?raw=true)
 
 ### Adoption Form
 ### Contact Form
