@@ -22,7 +22,8 @@ The platform allows users to:
 ![Pet Page Screenshot](https://github.com/NeetuSharma3012/Pet_Adoption_Platform_Frontend/blob/main/Screenshot%20(107).png?raw=true)
 
 ### Adoption Form
-![Contact page](Screenshot(112).png)
+### Contact Form
+![Contact Form](https://github.com/NeetuSharma3012/Pet_Adoption_Platform_Frontend/blob/main/Screenshot%20(112).png?raw=true)
 ![Admin page](Screenshot(114).png)
 
 ## Getting Started
