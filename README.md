@@ -16,7 +16,7 @@ The platform allows users to:
 ## Screenshots
 
 ### Homepage
-![Homepage Screenshot]([WhatApp Image 2024-12-16 at 19.00.50_2c467c96.jpg](https://github.com/NeetuSharma3012/Pet_Adoption_Platform_Frontend/blob/main/WhatsApp%20Image%202024-12-16%20at%2019.00.50_2c467c96.jpg?raw=true))
+![Homepage](https://github.com/NeetuSharma3012/Pet_Adoption_Platform_Frontend/blob/main/WhatsApp%20Image%202024-12-16%20at%2019.00.50_2c467c96.jpg?raw=true)
 
 ### Pet Details Page
 ![Pet Page Screenshot](Screenshot(107).png)
