@@ -23,6 +23,18 @@ const ServicePage = () => {
             <a href="/pets" className="text-lime-500 hover:text-gray-600 font-semibold">Learn More</a>
           </div>
 
+          {/* Service: Our Adopted Pets */}
+<div className="bg-white p-6 mb-6 rounded-lg shadow-lg">
+  <h3 className="text-2xl font-semibold mb-2 text-black">Our Adopted Pets</h3>
+  <p className="text-black mb-4">
+    Celebrate the heartwarming stories of pets who have found their forever homes. Take a look at our adopted furry friends!
+  </p>
+  <a href="/adopted-pets" className="text-lime-500 hover:text-gray-600 font-semibold">
+    See Adopted Pets
+  </a>
+</div>
+
+
           {/* Service 2 */}
           <div className="bg-white p-6 mb-6 rounded-lg shadow-lg">
             <h3 className="text-2xl font-semibold mb-2 text-black">Pet Care</h3>

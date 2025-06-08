@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import ConditionalLayout from "@/components/conditionalLayout";
+import { UserProvider } from "@/context/UserContext";
 
 
 
@@ -38,8 +39,9 @@ export default function RootLayout({ children }) {
         <Toaster position="top-center"/>
         {children}
         { <Footer/>} */}
-
+<UserProvider>
 <ConditionalLayout>{children}</ConditionalLayout>
+</UserProvider>
       </body>
     </html>
   );

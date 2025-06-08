@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import toast from 'react-hot-toast';
+import { useUser } from '@/context/UserContext';
 import * as Yup from 'yup';
 
 const LoginSchema = Yup.object().shape({
@@ -18,7 +19,7 @@ const LoginSchema = Yup.object().shape({
     
   });
 const Login = () => {
-
+  const { loginUser } = useUser(); // Using the custom hook to access loginUser function
   const router = useRouter();
 //initialising formik
 const form = useFormik({
@@ -34,7 +35,7 @@ const form = useFormik({
       .then((result) => {// Assuming the token is in "data.token"
         const token = result.data.token; 
         if (token) {
-          localStorage.setItem('token', token); //save the token in localStorage
+          loginUser(token); //save the token in localStorage
           toast.success('User login successfully');
         resetForm();
         router.push('/');

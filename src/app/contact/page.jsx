@@ -2,7 +2,8 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+ 
 import toast from 'react-hot-toast';
 
 const ContactPage = () => {

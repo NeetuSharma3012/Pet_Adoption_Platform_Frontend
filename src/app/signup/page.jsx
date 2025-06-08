@@ -1,9 +1,9 @@
 'use client';
-import { IconCheck, IconLoader3 } from '@tabler/icons-react';
+import { IconCheck, IconInfoCircle, IconLoader3 } from '@tabler/icons-react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 
@@ -26,6 +26,8 @@ const SignupSchema = Yup.object().shape({
 
 
 const signup = () => {
+
+  const [showConditions, setShowConditions] = useState(false); // State to toggle dropdown
 
   const router =useRouter();
 
@@ -215,6 +217,12 @@ const signup = () => {
                 required=""
                 aria-describedby="password-error"
               />
+              
+
+
+
+
+
               <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                 <svg
                   className="size-5 text-red-500"
@@ -228,6 +236,30 @@ const signup = () => {
                 </svg>
               </div>
             </div>
+
+            <div className="mt-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowConditions(!showConditions)}
+                                            className="flex items-center gap-2 text-xs text-gray-500 dark:text-neutral-400"
+                                        >
+                                            <IconInfoCircle size={16} /> 
+                                            <span>Password Requirements</span>
+                                        </button>
+                                        {showConditions && (
+                                            <div className="mt-2 p-4 bg-gray-100 border border-gray-300 rounded-md text-sm text-gray-600 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-300">
+                                                <ul className="list-disc pl-5">
+                                                    <li>Minimum 8 characters</li>
+                                                    <li>Contains atleast an uppercase letter</li>
+                                                    <li>Contains atleast a lowercase letter</li>
+                                                    <li>Contains atleast a number</li>
+                                                    <li>Contains atleast a symbol</li>
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
+
+            
             {
                 (form.errors.password && form.touched.password) && (<p className=" text-xs text-red-600 mt-2" id="password-error">
                     {form.errors.password}

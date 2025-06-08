@@ -158,6 +158,7 @@ const petsPage = () => {
             breed={pet.breed || 'unknown'} // Pass breed
             detailedDescription={pet.detailedDescription || 'No details available'}
             id={pet._id}//Pass pet ID to card
+            adopted={pet.adopted || false} // Pass adopted status
           />
         ))}
       </div>

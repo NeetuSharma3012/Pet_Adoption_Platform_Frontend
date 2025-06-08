@@ -38,18 +38,35 @@ const AdoptionRequestpage = () => {
       };
 
 
-      const deletePet = async (petId) => {
-        try {
-            //send delete rqst to bkend
-            await axios.delete(`http://localhost:5001/pets/delete/${petId}`);
+      // const deletePet = async (petId) => {
+      //   try {
+      //       //send delete rqst to bkend
+      //       await axios.delete(`http://localhost:5001/pets/delete/${petId}`);
 
-            //remove pet 
-            setPet(pet.filter(pet => pet._id !== petId));
-         } catch (error) {
-            console.error("Error approving rquest", error);
+      //       //remove pet 
+      //       setPet(pet.filter(pet => pet._id !== petId));
+      //    } catch (error) {
+      //       console.error("Error approving rquest", error);
             
-         }
-      };
+      //    }
+      // };
+
+      const approveAdoption = async (adoptionId, petId) => {
+  try {
+    // Mark pet as adopted
+    await axios.put(`http://localhost:5001/pets/adopt/${petId}`);
+
+    // Delete adoption request
+    await axios.delete(`http://localhost:5001/adoption/delete/${adoptionId}`);
+
+    // Remove adoption request from UI
+    setAdoption(adoption.filter(adoption => adoption._id !== adoptionId));
+
+  } catch (error) {
+    console.error("Error approving adoption:", error);
+  }
+};
+
 
     if(loading) {
         return <div className='text-center text-xl p-4'>Loading...</div>;
@@ -90,7 +107,7 @@ const AdoptionRequestpage = () => {
             </button>
 
             <button
-                onClick={() => deletePet(pet._id)}
+                onClick={() => approveAdoption(adoption._id, adoption.petId._id)}
                 className='py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-lime-400 text-black hover:bg-lime-500 
       focus:outline-none focus:bg-lime-500 transition
        disabled:opacity-50 disabled:pointer-events-none'

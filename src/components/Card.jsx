@@ -1,17 +1,27 @@
 
 import React, { useEffect, useState } from 'react';
+import { useUser } from '@/context/UserContext';
 import toast from 'react-hot-toast';
 
-const Card = ({ title, description, imageUrl, id, breed, detailedDescription }) => {
+const Card = ({ title, description, imageUrl, id, breed, detailedDescription,adopted, showAdoptButton=true }) => {
 
-  const [isLogging, setIsLogging] = useState(false);
+  // const [isLogging, setIsLogging] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLogging(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     setIsLogging(true);
+  //   }
+  // }, []);
+
+  const { userToken, logoutUser } = useUser();
+  if (userToken) {
+    // User is logged in
+    var isLogging = true;
+  } else {
+    // User is not logged in
+    var isLogging = false;
+  }
 
   const handleAdoptNow = (event) => {
     if (!isLogging) {
@@ -27,11 +37,18 @@ const Card = ({ title, description, imageUrl, id, breed, detailedDescription }) 
     shadow-md space-y-5 mx-5">
       {/* Image Section */}
       {imageUrl && (
+        <div className="relative mb-4">
         <img
           src={imageUrl}
           alt={title}
           className="w-full h-48 object-cover rounded-md"
         />
+        {adopted && (
+          <span className='absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded'>
+            Adopted 
+          </span>
+        )}
+      </div>
       )}
 
       {/* Content Section */}
@@ -44,6 +61,7 @@ const Card = ({ title, description, imageUrl, id, breed, detailedDescription }) 
 
       {/* Button Section */}
       <div className="flex gap-5">
+        {showAdoptButton && (
         <a
           href={isLogging ? `/adoptionForm?petId=${id}&petTitle=${title}&petImage=${imageUrl}&petBreed=${breed}` : '/login'}
           className="py-2 px-3 inline-flex items-center gap-x-2 
@@ -57,8 +75,7 @@ const Card = ({ title, description, imageUrl, id, breed, detailedDescription }) 
         >
           Adopt Now
         </a>
-
-
+        )}
         <a
           href={`/pet-details/` + id}
 

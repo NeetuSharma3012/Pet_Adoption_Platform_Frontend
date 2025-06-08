@@ -1,27 +1,34 @@
 'use client';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useUser } from '@/context/UserContext';
 import toast from 'react-hot-toast';
 
 
 const Navbar = () => {
 
-  const [isLoggedin, setIsLoggedin] = useState(false);
+//   const [isLoggedin, setIsLoggedin] = useState(false);
 
-useEffect(() => {
-  const token = localStorage.getItem('token');
-  if(token) {
-    setIsLoggedin(true);
-  }
-},[]);
+// useEffect(() => {
+//   const token = localStorage.getItem('token');
+//   if(token) {
+//     setIsLoggedin(true);
+//   }
+// },[]);
 
-const handleLogout =() => {
-  localStorage.removeItem('token');
-  setIsLoggedin(false);
-};
+const { userToken, loginUser, logoutUser } = useUser();
+if (userToken) {
+  // User is logged in  
+  var isLoggedin = true;
+} else {
+  // User is not logged in
+  var isLoggedin = false;
+}
 
-  const handleLoginLogout =( ) => {
-    setIsLoggedin(!isLoggedin);
-  };
+
+
+
+
+
 
   const handleContact = (event) => {
     if(!isLoggedin) {
@@ -211,7 +218,7 @@ const handleLogout =() => {
               className="inline-block text-black font-bold underline hover:text-gray-600 focus:outline-none
               focus:text-gray-600 dark:text-white dark:hover:text-neutral-300 dark:focus:text-neutral-300"
               href={isLoggedin ? "#" : "/login"}
-              onClick={isLoggedin ? handleLogout : null} 
+              onClick={isLoggedin ? logoutUser : null} 
             >
               {isLoggedin ? "Logout" : "Login"}
             </a>

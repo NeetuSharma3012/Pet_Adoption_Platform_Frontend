@@ -11,10 +11,11 @@ export default function ConditionalLayout({ children }) {
 
   // List of paths where Navbar and Footer should be excluded
   const excludedPaths = [
-    "/adminpanel",        // Admin Panel
+    "/admin",        // Admin Panel
     "/user-data",             
     "/adoption-request",         
-    "/contact-request",    
+    "/contact-request",
+    "/adopted-pets", // Adopted Pets Page
   ];
 
   // Check if the current route matches any of the excluded paths
