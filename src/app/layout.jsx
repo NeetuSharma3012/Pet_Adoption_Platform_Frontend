@@ -47,6 +47,7 @@ export default function RootLayout({ children }) {
         {children}
         { <Footer/>} */}
 <UserProvider>
+  <Toaster position="top-center" />
 <ConditionalLayout>{children}</ConditionalLayout>
 </UserProvider>
       </body>
