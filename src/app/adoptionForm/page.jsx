@@ -2,8 +2,9 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
+import { useUser } from '@/context/UserContext';
 
 const Adoptionpage = () => {
 
@@ -51,6 +52,18 @@ const Adoptionpage = () => {
       });
     }
   });
+
+  const { userInfo } = useUser();
+
+  useEffect(() => {
+    if (userInfo) {
+      if (!form.values.fullName  && !form.values.email) {
+        
+        form.setFieldValue('fullName', userInfo.name);
+        form.setFieldValue('email', userInfo.email);
+      }
+    }
+  }, [userInfo]);
   
 
 
@@ -90,6 +103,7 @@ const Adoptionpage = () => {
                 <input
                   type="text"
                   name="fullName"
+                  readOnly={!!userInfo}
                   id="hs-firstname-contacts-1"
                   value={form.values.fullName}
                   onChange={form.handleChange}
@@ -111,6 +125,7 @@ const Adoptionpage = () => {
                 <input
                   type="email"
                   name="email"
+                  readOnly={!!userInfo}
                   id="hs-email-contacts-1"
                   autoComplete="email"
                   value={form.values.email}

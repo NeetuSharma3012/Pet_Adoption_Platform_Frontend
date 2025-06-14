@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import ConditionalLayout from "@/components/conditionalLayout";
 import { UserProvider } from "@/context/UserContext";
+import Script from "next/script";
 
 
 
@@ -32,6 +33,12 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="afterInteractive"
+          />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

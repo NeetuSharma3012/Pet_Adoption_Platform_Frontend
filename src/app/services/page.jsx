@@ -60,7 +60,7 @@ const ServicePage = () => {
           <div className="bg-white p-6 mb-6 rounded-lg shadow-lg">
             <h3 className="text-2xl font-semibold mb-2 text-black">Donate</h3>
             <p className="text-black mb-4">Support our mission to rescue and care for pets in need by making a donation today.</p>
-            <a href="/#" className="text-lime-500 hover:text-gray-600 font-semibold">Donate Now</a>
+            <a href="/donations/donation-page" className="text-lime-500 hover:text-gray-600 font-semibold">Donate Now</a>
           </div>
 
         </div>

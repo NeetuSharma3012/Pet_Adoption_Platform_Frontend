@@ -2,8 +2,8 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
- 
+import React, { useEffect, useState } from 'react';
+import { useUser } from '@/context/UserContext';
 import toast from 'react-hot-toast';
 
 const ContactPage = () => {
@@ -32,6 +32,21 @@ const ContactPage = () => {
       });
     }
   });
+
+  
+  const { userInfo } = useUser();
+
+ useEffect(() => {
+  if (userInfo) {
+    if (!form.values.firstName && !form.values.lastName && !form.values.email) {
+      const [firstName, lastName = ''] = userInfo.name?.split(' ') || ['',''];
+      form.setFieldValue('firstName', firstName);
+      form.setFieldValue('lastName', lastName);
+      form.setFieldValue('email', userInfo.email);
+    }
+  }
+}, [userInfo]);
+
 
   return (
     <div>
@@ -72,6 +87,7 @@ const ContactPage = () => {
                 <input
                   type="text"
                   name="firstName"
+                  readOnly={!!userInfo}
                   id="hs-firstname-contacts-1"
                   value={form.values.firstName}
                   onChange={form.handleChange}
@@ -88,6 +104,7 @@ const ContactPage = () => {
                 <input
                   type="text"
                   name="lastName"
+                  readOnly={!!userInfo}
                   id="hs-lastname-contacts-1"
                   value={form.values.lastName}
                   onChange={form.handleChange}
@@ -108,6 +125,7 @@ const ContactPage = () => {
                 <input
                   type="email"
                   name="email"
+                  readOnly={!!userInfo}
                   id="hs-email-contacts-1"
                   autoComplete="email"
                   value={form.values.email}

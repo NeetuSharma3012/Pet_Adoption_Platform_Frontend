@@ -16,6 +16,7 @@ export default function ConditionalLayout({ children }) {
     "/adoption-request",         
     "/contact-request",
     "/adopted-pets", // Adopted Pets Page
+    "/donations/receipt"
   ];
 
   // Check if the current route matches any of the excluded paths
