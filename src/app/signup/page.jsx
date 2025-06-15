@@ -25,7 +25,7 @@ const SignupSchema = Yup.object().shape({
   });
 
 
-const signup = () => {
+const Signup = () => {
 
   const [showConditions, setShowConditions] = useState(false); // State to toggle dropdown
 
@@ -41,12 +41,7 @@ const signup = () => {
             confirmPassword: ''
         },
         onSubmit: (values, { resetForm, setSubmitting }) => {
-      //       setTimeout(() => {
-      //     console.log(values);
-      //     resetForm();
-      // }, 2000);
-
-      //fetch
+      
       axiosInstance.post('/user/add', values)
         .then((result) => {
           toast.success('User Registered successfully');
@@ -351,4 +346,4 @@ const signup = () => {
   )
 }
 
-export default signup;
+export default Signup;

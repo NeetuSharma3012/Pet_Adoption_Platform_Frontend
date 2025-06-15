@@ -18,17 +18,7 @@ const Adoptionpage = () => {
   const petTitle = searchParams.get('petTitle');
   const petImage = searchParams.get('petImage');
   
-
-  // Ensure the form won't submit if petId is missing
-  if (!petId || !petTitle || !petImage) {
-    return (
-      <div className="text-center mt-10">
-        <p className="text-red-600">Pet not specified. Please go back and try again.</p>
-      </div>
-    );
-  }
-
-  const form =useFormik({
+const form =useFormik({
     initialValues:{
       fullName: '',
       email: '',
@@ -53,8 +43,6 @@ const Adoptionpage = () => {
     }
   });
 
-  const { userInfo } = useUser();
-
   useEffect(() => {
     if (userInfo) {
       if (!form.values.fullName  && !form.values.email) {
@@ -64,6 +52,24 @@ const Adoptionpage = () => {
       }
     }
   }, [userInfo]);
+
+const { userInfo } = useUser();
+
+
+  // Ensure the form wont submit if petId is missing
+  if (!petId || !petTitle || !petImage) {
+    return (
+      <div className="text-center mt-10">
+        <p className="text-red-600">Pet not specified. Please go back and try again.</p>
+      </div>
+    );
+  }
+
+  
+
+  
+
+  
   
 
 
@@ -182,7 +188,7 @@ const Adoptionpage = () => {
           </div>
           <div className="mt-3 text-center">
             <p className="text-sm text-gray-500 dark:text-neutral-500">
-              We're excited to review your application! Expect to hear from us soon
+              We&apos;re excited to review your application! Expect to hear from us soon
             </p>
           </div>
         </form>

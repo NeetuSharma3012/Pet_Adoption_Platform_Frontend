@@ -29,7 +29,7 @@ const PetCare = () => {
         <div className="border rounded-lg bg-white p-4 shadow hover:shadow-lg transition">
           <h2 className="text-xl font-bold mb-2 text-black">Daycare</h2>
           <p className="text-black">
-            Our daycare service provides a safe and playful environment for your pets while you're away.
+            Our daycare service provides a safe and playful environment for your pets while you&apos;re away.
           </p>
         </div>
       </div>

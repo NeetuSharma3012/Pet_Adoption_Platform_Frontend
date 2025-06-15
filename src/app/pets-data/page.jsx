@@ -5,7 +5,7 @@ import axiosInstance from '@/utils/axiosInstance';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-const petDatapage = () => {
+const PetDatapage = () => {
     const [pets, setPets] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -78,4 +78,4 @@ const petDatapage = () => {
   )
 }
 
-export default petDatapage;
+export default PetDatapage;
