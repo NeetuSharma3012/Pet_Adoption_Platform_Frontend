@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic'; // This page should always be re-rendered on each request
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
