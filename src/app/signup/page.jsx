@@ -1,6 +1,6 @@
 'use client';
+import axiosInstance from '@/utils/axiosInstance';
 import { IconCheck, IconInfoCircle, IconLoader3 } from '@tabler/icons-react';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -47,7 +47,7 @@ const signup = () => {
       // }, 2000);
 
       //fetch
-      axios.post('http://localhost:5001/user/add', values)
+      axiosInstance.post('/user/add', values)
         .then((result) => {
           toast.success('User Registered successfully');
           resetForm();

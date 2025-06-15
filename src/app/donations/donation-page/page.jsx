@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useUser } from '@/context/UserContext';
 import { useRouter } from 'next/navigation';
+import axiosInstance from '@/utils/axiosInstance';
 
 const DonationPage = () => {
   const [donorName, setDonorName] = useState('');
@@ -21,7 +22,7 @@ const DonationPage = () => {
   }, [userInfo]);
 
   const handlePayment = async () => {
-    const res = await axios.post('http://localhost:5001/donations/create-order', {
+    const res = await axiosInstance.post('/donations/create-order', {
       amount,
       donorName,
       donorEmail
@@ -38,7 +39,7 @@ const DonationPage = () => {
       order_id: orderId,
       handler: async function (response) {
   // save the donation on your backend
-  await axios.post('http://localhost:5001/donations/record', {
+  await axiosInstance.post('/donations/record', {
     userId: userInfo._id,
     transactionId: response.razorpay_payment_id,
     amount: amount

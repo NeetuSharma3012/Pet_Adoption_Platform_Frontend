@@ -1,6 +1,6 @@
 'use client';
 import Card from '@/components/Card'
-import axios from 'axios';
+import axiosInstance from '@/utils/axiosInstance';
 import React, { useEffect, useState } from 'react'
 
 // const pets =[
@@ -103,7 +103,7 @@ const petsPage = () => {
 //fetch pet from backend 
   const fetchPets = async () => {
     try {
-        const response = await axios.get('http://localhost:5001/pets/getall');
+        const response = await axiosInstance.get('/pets/getall');
         setPets(response.data);
     } catch (error) {
         console.error('Error fetching pets:', error);

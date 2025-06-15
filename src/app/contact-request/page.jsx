@@ -1,6 +1,7 @@
 'use client';
 import Footer from '@/components/Footer_admin';
 import Navbar from '@/components/Navbar_admin';
+import axiosInstance from '@/utils/axiosInstance';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
@@ -11,7 +12,7 @@ const ContactRequestpage = () => {
     useEffect(() => {
         const fetchContact = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/contact/getall");
+                const response = await axiosInstance.get("/contact/getall");
                 setContact(response.data);
                 setLoading(false);
             } catch (error) {
@@ -27,7 +28,7 @@ const ContactRequestpage = () => {
     const deleteContact = async (contactId) => {
         try {
           // Send DELETE request to backend
-          await axios.delete(`http://localhost:5001/contact/delete/${contactId}`);
+          await axiosInstance.delete(`/contact/delete/${contactId}`);
           
           // Remove user from local state after successful deletion
           setContact(contact.filter(contact => contact._id !== contactId));

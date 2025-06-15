@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useUser } from '@/context/UserContext';
+import axiosInstance from '@/utils/axiosInstance';
 
 const MyDonations = () => {
   const { userInfo } = useUser();
@@ -9,7 +9,7 @@ const MyDonations = () => {
 
   useEffect(() => {
     if (userInfo) {
-      axios.get(`http://localhost:5001/donations/user/${userInfo._id}`)
+      axiosInstance.get(`/donations/user/${userInfo._id}`)
         .then(res => setDonations(res.data))
         .catch(err => console.log(err));
     }

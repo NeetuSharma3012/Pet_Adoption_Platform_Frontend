@@ -1,7 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import { useParams, useRouter } from 'next/navigation';
+import axiosInstance from '@/utils/axiosInstance';
 
 const PetDetails = () => {
     const { id } = useParams();
@@ -16,7 +17,7 @@ const PetDetails = () => {
 
         const fetchPetDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/pets/getbyid/${id}`);
+                const response = await axiosInstance.get(`/pets/getbyid/${id}`);
                 setPet(response.data);
             } catch (error) {
                 console.error('Error fetching pet details:', error.response || error);

@@ -1,10 +1,10 @@
 'use client';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useUser } from '@/context/UserContext';
+import axiosInstance from '@/utils/axiosInstance';
 
 const Adoptionpage = () => {
 
@@ -39,7 +39,7 @@ const Adoptionpage = () => {
       petImage: petImage
     },
     onSubmit: (values, { resetForm, setSubmitting}) =>{
-      axios.post('http://localhost:5001/adoption/submit', values )
+      axiosInstance.post('/adoption/submit', values )
       .then((result) => {
         toast.success('Form Successfully Submitted.');
         resetForm();

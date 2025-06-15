@@ -1,11 +1,11 @@
 'use client';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { useUser } from '@/context/UserContext';
 import * as Yup from 'yup';
+import axiosInstance from '@/utils/axiosInstance';
 
 const LoginSchema = Yup.object().shape({
     
@@ -31,7 +31,7 @@ const form = useFormik({
   },
   onSubmit : (values, { resetForm, setSubmitting }) => {
       setSubmitting(true);
-      axios.post('http://localhost:5001/user/authenticate', values)
+      axiosInstance.post('/user/authenticate', values)
       .then((result) => {// Assuming the token is in "data.token"
         const token = result.data.token; 
         if (token) {

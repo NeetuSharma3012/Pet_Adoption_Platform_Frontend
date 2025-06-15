@@ -1,6 +1,7 @@
 'use client';
 import Footer from '@/components/Footer_admin';
 import Navbar from '@/components/Navbar_admin';
+import axiosInstance from '@/utils/axiosInstance';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
@@ -11,7 +12,7 @@ const petDatapage = () => {
     useEffect(() => {
         const fetchPets = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/pets/getall");
+                const response = await axiosInstance.get("/pets/getall");
                 setPets(response.data);
                 setLoading(false);
             } catch (error) {
@@ -28,7 +29,7 @@ const petDatapage = () => {
   const deletePet = async (petId) => {
     try {
       // Send DELETE request to backend
-      await axios.delete(`http://localhost:5001/pets/delete/${petId}`);
+      await axiosInstance.delete(`/pets/delete/${petId}`);
       
       // Remove pet from local state after successful deletion
       setPets(pets.filter(pet => pet._id !== petId));

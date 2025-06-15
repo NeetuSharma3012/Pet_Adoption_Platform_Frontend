@@ -1,10 +1,11 @@
 'use client';
-import axios from 'axios';
+
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useUser } from '@/context/UserContext';
 import toast from 'react-hot-toast';
+import axiosInstance from '@/utils/axiosInstance';
 
 const ContactPage = () => {
 
@@ -19,7 +20,7 @@ const ContactPage = () => {
       details: ''
     },
     onSubmit: (values, { resetForm, setSubmitting}) =>{
-      axios.post('http://localhost:5001/contact/submit', values)
+      axiosInstance.post('/contact/submit', values)
       .then((result) => {
         toast.success('Form Successfully Submitted.');
         resetForm();

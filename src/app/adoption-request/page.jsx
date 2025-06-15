@@ -1,7 +1,7 @@
 'use client';
 import Footer from '@/components/Footer_admin';
 import Navbar from '@/components/Navbar_admin';
-import axios from 'axios';
+import axiosInstance from '@/utils/axiosInstance';
 import React, { useEffect, useState } from 'react'
 
 const AdoptionRequestpage = () => {
@@ -12,7 +12,7 @@ const AdoptionRequestpage = () => {
     useEffect(() => {
         const fetchAdoption = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/adoption/getall");
+                const response = await axiosInstance.get("/adoption/getall");
                 setAdoption(response.data);
                 setLoading(false);
             } catch (error) {
@@ -28,7 +28,7 @@ const AdoptionRequestpage = () => {
     const deleteAdoption = async (adoptionId) => {
         try {
           // Send DELETE request to backend
-          await axios.delete(`http://localhost:5001/adoption/delete/${adoptionId}`);
+          await axiosInstance.delete(`/adoption/delete/${adoptionId}`);
           
           // Remove user from local state after successful deletion
           setAdoption(adoption.filter(adoption => adoption._id !== adoptionId));
@@ -54,10 +54,10 @@ const AdoptionRequestpage = () => {
       const approveAdoption = async (adoptionId, petId) => {
   try {
     // Mark pet as adopted
-    await axios.put(`http://localhost:5001/pets/adopt/${petId}`);
+    await axiosInstance.put(`/pets/adopt/${petId}`);
 
     // Delete adoption request
-    await axios.delete(`http://localhost:5001/adoption/delete/${adoptionId}`);
+    await axiosInstance.delete(`/adoption/delete/${adoptionId}`);
 
     // Remove adoption request from UI
     setAdoption(adoption.filter(adoption => adoption._id !== adoptionId));

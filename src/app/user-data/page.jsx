@@ -1,7 +1,8 @@
 'use client';
 import Footer from '@/components/Footer_admin';
 import Navbar from '@/components/Navbar_admin';
-import axios from 'axios';
+import axiosInstance from '@/utils/axiosInstance';
+
 import React, { useEffect, useState } from 'react'
 
 const UserDatapage = () => {
@@ -11,7 +12,7 @@ const UserDatapage = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/user/getall");
+                const response = await axiosInstance.get("/user/getall");
                 setUsers(response.data);
                 setLoading(false);
             } catch (error) {
@@ -28,7 +29,7 @@ const UserDatapage = () => {
   const deleteUser = async (userId) => {
     try {
       // Send DELETE request to backend
-      await axios.delete(`http://localhost:5001/user/delete/${userId}`);
+      await axiosInstance.delete(`/user/delete/${userId}`);
       
       // Remove user from local state after successful deletion
       setUsers(users.filter(user => user._id !== userId));
