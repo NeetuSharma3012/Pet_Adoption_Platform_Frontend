@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '@/components/Card';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import axiosInstance from '@/utils/axiosInstance';
+
 
 const AdoptedPetsPage = () => {
   const [adoptedPets, setAdoptedPets] = useState([]);
